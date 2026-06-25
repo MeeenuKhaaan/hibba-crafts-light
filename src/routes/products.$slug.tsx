@@ -1,5 +1,9 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 import { getProduct, products, formatPKR } from "@/lib/products";
+import { SiteHeader, PromoBar } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { useCart } from "@/lib/cart";
 
 export const Route = createFileRoute("/products/$slug")({
   loader: ({ params }) => {
@@ -26,7 +30,7 @@ export const Route = createFileRoute("/products/$slug")({
       <p className="text-[11px] uppercase tracking-luxury text-muted-foreground">404</p>
       <h1 className="mt-3 font-script text-5xl">Product not found</h1>
       <Link
-        to="/"
+        to="/shop"
         className="mt-8 inline-block border border-foreground px-8 py-3 text-[11px] uppercase tracking-luxury hover:bg-foreground hover:text-background"
       >
         Back to shop
@@ -50,31 +54,40 @@ export const Route = createFileRoute("/products/$slug")({
 
 function ProductPage() {
   const { product } = Route.useLoaderData();
+  const { add } = useCart();
+  const navigate = useNavigate();
+  const [qty, setQty] = useState(1);
+  const [added, setAdded] = useState(false);
+
   const related = products.filter(
     (p) => p.category === product.category && p.slug !== product.slug,
   );
 
+  const onAdd = () => {
+    add(product.slug, qty);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
+
+  const onBuyNow = () => {
+    add(product.slug, qty);
+    navigate({ to: "/cart" });
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="bg-foreground text-background">
-        <div className="mx-auto max-w-7xl px-6 py-2 text-center text-[11px] uppercase tracking-luxury">
-          Free delivery on orders above Rs.1,990
-        </div>
-      </div>
-
-      <header className="border-b border-border bg-background">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          <Link to="/" className="font-script text-4xl">Hibba</Link>
-          <Link to="/" className="text-[11px] uppercase tracking-luxury hover:underline">
-            ← Continue shopping
-          </Link>
-        </div>
-      </header>
+      <PromoBar />
+      <SiteHeader />
 
       <nav className="mx-auto max-w-7xl px-6 pt-6 text-[11px] uppercase tracking-luxury text-muted-foreground">
         <Link to="/" className="hover:text-foreground">Home</Link>
         <span className="mx-2">/</span>
-        <span>{product.category}</span>
+        <Link
+          to={product.category === "Knives" ? "/knives" : "/shop"}
+          className="hover:text-foreground"
+        >
+          {product.category}
+        </Link>
         <span className="mx-2">/</span>
         <span className="text-foreground">{product.name}</span>
       </nav>
@@ -96,9 +109,7 @@ function ProductPage() {
         </div>
 
         <div className="flex flex-col">
-          <p className="text-[11px] uppercase tracking-luxury text-muted-foreground">
-            {product.sku}
-          </p>
+          <p className="text-[11px] uppercase tracking-luxury text-muted-foreground">{product.sku}</p>
           <h1 className="mt-3 text-2xl font-medium uppercase tracking-wider md:text-3xl">
             {product.name}
           </h1>
@@ -116,9 +127,7 @@ function ProductPage() {
           </div>
 
           <div className="mt-6">
-            <p className="text-[11px] uppercase tracking-luxury text-muted-foreground">
-              Details
-            </p>
+            <p className="text-[11px] uppercase tracking-luxury text-muted-foreground">Details</p>
             <ul className="mt-3 space-y-2 text-sm">
               {product.details.map((d: string) => (
                 <li key={d} className="flex items-start gap-3">
@@ -129,12 +138,35 @@ function ProductPage() {
             </ul>
           </div>
 
-          <div className="mt-10 flex flex-col gap-3">
-            <button className="w-full border border-foreground bg-foreground px-8 py-4 text-[11px] uppercase tracking-luxury text-background transition hover:bg-transparent hover:text-foreground">
-              Add to bag · {formatPKR(product.price)}
+          <div className="mt-8 flex items-center gap-4">
+            <p className="text-[11px] uppercase tracking-luxury text-muted-foreground">Quantity</p>
+            <div className="flex items-center border border-border">
+              <button
+                aria-label="Decrease"
+                onClick={() => setQty(Math.max(1, qty - 1))}
+                className="px-3 py-1 text-base hover:bg-secondary"
+              >−</button>
+              <span className="w-8 text-center text-sm">{qty}</span>
+              <button
+                aria-label="Increase"
+                onClick={() => setQty(qty + 1)}
+                className="px-3 py-1 text-base hover:bg-secondary"
+              >+</button>
+            </div>
+          </div>
+
+          <div className="mt-6 flex flex-col gap-3">
+            <button
+              onClick={onAdd}
+              className="w-full border border-foreground bg-foreground px-8 py-4 text-[11px] uppercase tracking-luxury text-background transition hover:bg-transparent hover:text-foreground"
+            >
+              {added ? "Added to bag ✓" : `Add to bag · ${formatPKR(product.price * qty)}`}
             </button>
-            <button className="w-full border border-foreground px-8 py-4 text-[11px] uppercase tracking-luxury transition hover:bg-foreground hover:text-background">
-              Save for later
+            <button
+              onClick={onBuyNow}
+              className="w-full border border-foreground px-8 py-4 text-[11px] uppercase tracking-luxury transition hover:bg-foreground hover:text-background"
+            >
+              Buy it now
             </button>
           </div>
 
@@ -180,11 +212,7 @@ function ProductPage() {
         </section>
       )}
 
-      <footer className="bg-foreground text-background">
-        <div className="mx-auto max-w-7xl px-6 py-10 text-center text-[11px] uppercase tracking-luxury">
-          © {new Date().getFullYear()} HIBBA Trading · Designed in Pakistan
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
