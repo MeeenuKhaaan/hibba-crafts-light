@@ -8,20 +8,28 @@ import knifeset from "@/assets/product-knifeset.jpg";
 export type Product = {
   slug: string;
   name: string;
-  price: string;
+  sku: string;
+  price: number; // PKR
   category: "Leather" | "Knives";
+  gender?: "Men" | "Women" | "Unisex";
   img: string;
   tagline: string;
   description: string;
   details: string[];
+  isNew?: boolean;
 };
+
+export const formatPKR = (n: number) =>
+  `Rs.${n.toLocaleString("en-PK")}`;
 
 export const products: Product[] = [
   {
     slug: "heritage-bifold-wallet",
-    name: "Heritage Bifold Wallet",
-    price: "$89",
+    name: "Heritage Bifold Wallet — Tan",
+    sku: "MW0813A-003",
+    price: 5530,
     category: "Leather",
+    gender: "Men",
     img: wallet,
     tagline: "Slim, full-grain, made to patina.",
     description:
@@ -32,12 +40,15 @@ export const products: Product[] = [
       "6 card slots + 2 hidden pockets",
       "Dimensions: 11 × 9 cm",
     ],
+    isNew: true,
   },
   {
     slug: "damascus-chef-knife",
     name: "Damascus Chef Knife",
-    price: "$249",
+    sku: "KC0220-001",
+    price: 18500,
     category: "Knives",
+    gender: "Unisex",
     img: knife,
     tagline: "67-layer folded steel, walnut handle.",
     description:
@@ -46,14 +57,16 @@ export const products: Product[] = [
       "VG-10 core, 67-layer damascus",
       "HRC 60-62 hardness",
       "Stabilised walnut handle",
-      "8\" / 20 cm blade",
+      '8" / 20 cm blade',
     ],
   },
   {
     slug: "hand-stitched-belt",
-    name: "Hand-Stitched Belt",
-    price: "$119",
+    name: "Hand-Stitched Belt — Dark Brown",
+    sku: "MB0090-002",
+    price: 5500,
     category: "Leather",
+    gender: "Men",
     img: belt,
     tagline: "One piece of leather. Solid brass.",
     description:
@@ -64,12 +77,15 @@ export const products: Product[] = [
       "Hand-burnished edges",
       "Available in 5 sizes",
     ],
+    isNew: true,
   },
   {
     slug: "brass-pocket-knife",
     name: "Brass Pocket Knife",
-    price: "$145",
+    sku: "KP0440-002",
+    price: 9800,
     category: "Knives",
+    gender: "Unisex",
     img: pocketknife,
     tagline: "Everyday carry, brass bolsters.",
     description:
@@ -84,24 +100,29 @@ export const products: Product[] = [
   {
     slug: "cognac-messenger-bag",
     name: "Cognac Messenger Bag",
-    price: "$389",
+    sku: "WB0150-004",
+    price: 24900,
     category: "Leather",
+    gender: "Women",
     img: bag,
     tagline: "A daily bag, built for decades.",
     description:
-      "Roomy enough for a 14\" laptop and a notebook, the Cognac Messenger is built around a hand-cut leather body, antique brass hardware, and a cotton-canvas lining you can actually clean.",
+      'Roomy enough for a 14" laptop and a notebook, the Cognac Messenger is built around a hand-cut leather body, antique brass hardware, and a cotton-canvas lining you can actually clean.',
     details: [
       "Full-grain cognac leather",
       "Antique solid brass hardware",
-      "Fits 14\" laptop",
+      'Fits 14" laptop',
       "Adjustable shoulder strap",
     ],
+    isNew: true,
   },
   {
     slug: "kitchen-knife-duo",
     name: "Kitchen Knife Duo",
-    price: "$329",
+    sku: "KC0330-001",
+    price: 22500,
     category: "Knives",
+    gender: "Unisex",
     img: knifeset,
     tagline: "Chef + paring. The everyday pair.",
     description:
@@ -109,7 +130,7 @@ export const products: Product[] = [
     details: [
       "High-carbon stainless steel",
       "Matched rosewood handles",
-      "8\" chef + 3.5\" paring",
+      '8" chef + 3.5" paring',
       "Includes cotton roll",
     ],
   },
