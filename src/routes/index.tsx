@@ -1,11 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import hero from "@/assets/hero.jpg";
-import wallet from "@/assets/product-wallet.jpg";
-import knife from "@/assets/product-knife.jpg";
 import belt from "@/assets/product-belt.jpg";
-import pocketknife from "@/assets/product-pocketknife.jpg";
-import bag from "@/assets/product-bag.jpg";
-import knifeset from "@/assets/product-knifeset.jpg";
+import knife from "@/assets/product-knife.jpg";
+import { products } from "@/lib/products";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,21 +23,6 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-type Product = {
-  name: string;
-  price: string;
-  category: "Leather" | "Knives";
-  img: string;
-};
-
-const products: Product[] = [
-  { name: "Heritage Bifold Wallet", price: "$89", category: "Leather", img: wallet },
-  { name: "Damascus Chef Knife", price: "$249", category: "Knives", img: knife },
-  { name: "Hand-Stitched Belt", price: "$119", category: "Leather", img: belt },
-  { name: "Brass Pocket Knife", price: "$145", category: "Knives", img: pocketknife },
-  { name: "Cognac Messenger Bag", price: "$389", category: "Leather", img: bag },
-  { name: "Kitchen Knife Duo", price: "$329", category: "Knives", img: knifeset },
-];
 
 function Home() {
   return (
@@ -192,8 +174,12 @@ function Catalog() {
 
       <div className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((p) => (
-          <article key={p.name} className="group">
-            <div className="overflow-hidden rounded-xl bg-secondary">
+          <article key={p.slug} className="group">
+            <Link
+              to="/products/$slug"
+              params={{ slug: p.slug }}
+              className="block overflow-hidden rounded-xl bg-secondary"
+            >
               <img
                 src={p.img}
                 alt={p.name}
@@ -202,19 +188,29 @@ function Catalog() {
                 loading="lazy"
                 className="aspect-square w-full object-cover transition duration-500 group-hover:scale-[1.03]"
               />
-            </div>
+            </Link>
             <div className="mt-4 flex items-start justify-between gap-4">
               <div>
                 <p className="text-xs uppercase tracking-widest text-muted-foreground">
                   {p.category}
                 </p>
-                <h3 className="mt-1 font-display text-xl">{p.name}</h3>
+                <Link
+                  to="/products/$slug"
+                  params={{ slug: p.slug }}
+                  className="mt-1 block font-display text-xl hover:text-primary"
+                >
+                  {p.name}
+                </Link>
               </div>
               <span className="font-medium">{p.price}</span>
             </div>
-            <button className="mt-4 w-full rounded-full border border-border bg-card py-2.5 text-sm font-medium transition hover:bg-primary hover:text-primary-foreground">
-              Add to cart
-            </button>
+            <Link
+              to="/products/$slug"
+              params={{ slug: p.slug }}
+              className="mt-4 block w-full rounded-full border border-border bg-card py-2.5 text-center text-sm font-medium transition hover:bg-primary hover:text-primary-foreground"
+            >
+              View product
+            </Link>
           </article>
         ))}
       </div>
