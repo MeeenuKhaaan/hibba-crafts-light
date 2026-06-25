@@ -110,7 +110,7 @@ function ProductPage() {
           </p>
 
           <ul className="mt-6 space-y-2 text-sm">
-            {product.details.map((d) => (
+            {product.details.map((d: string) => (
               <li key={d} className="flex items-start gap-3">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                 <span>{d}</span>
