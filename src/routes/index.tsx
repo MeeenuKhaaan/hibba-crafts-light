@@ -1,11 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import hero from "@/assets/hero.jpg";
-import wallet from "@/assets/product-wallet.jpg";
-import knife from "@/assets/product-knife.jpg";
 import belt from "@/assets/product-belt.jpg";
-import pocketknife from "@/assets/product-pocketknife.jpg";
-import bag from "@/assets/product-bag.jpg";
-import knifeset from "@/assets/product-knifeset.jpg";
+import knife from "@/assets/product-knife.jpg";
+import { products } from "@/lib/products";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,21 +23,6 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-type Product = {
-  name: string;
-  price: string;
-  category: "Leather" | "Knives";
-  img: string;
-};
-
-const products: Product[] = [
-  { name: "Heritage Bifold Wallet", price: "$89", category: "Leather", img: wallet },
-  { name: "Damascus Chef Knife", price: "$249", category: "Knives", img: knife },
-  { name: "Hand-Stitched Belt", price: "$119", category: "Leather", img: belt },
-  { name: "Brass Pocket Knife", price: "$145", category: "Knives", img: pocketknife },
-  { name: "Cognac Messenger Bag", price: "$389", category: "Leather", img: bag },
-  { name: "Kitchen Knife Duo", price: "$329", category: "Knives", img: knifeset },
-];
 
 function Home() {
   return (
