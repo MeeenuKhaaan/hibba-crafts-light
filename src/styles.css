@@ -28,34 +28,35 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --font-display: "Cormorant Garamond", Georgia, serif;
-  --font-sans: "Inter", system-ui, sans-serif;
-  --shadow-soft: 0 10px 30px -12px color-mix(in oklab, var(--primary) 18%, transparent);
-  --shadow-card: 0 1px 2px rgba(60,40,20,0.04), 0 12px 30px -16px rgba(60,40,20,0.18);
+  --font-display: "Jost", "Helvetica Neue", sans-serif;
+  --font-sans: "Jost", "Helvetica Neue", sans-serif;
+  --font-script: "Great Vibes", "Brush Script MT", cursive;
+  --shadow-soft: 0 8px 30px -12px rgba(0,0,0,0.15);
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.04), 0 14px 40px -20px rgba(0,0,0,0.18);
 }
 
 :root {
-  --radius: 0.5rem;
-  /* warm cream / leather palette */
-  --background: oklch(0.985 0.012 80);
-  --foreground: oklch(0.24 0.03 50);
-  --card: oklch(0.995 0.008 85);
-  --card-foreground: oklch(0.24 0.03 50);
-  --popover: oklch(0.995 0.008 85);
-  --popover-foreground: oklch(0.24 0.03 50);
-  --primary: oklch(0.42 0.11 45);            /* deep leather brown */
-  --primary-foreground: oklch(0.98 0.01 80);
-  --secondary: oklch(0.94 0.02 75);
-  --secondary-foreground: oklch(0.3 0.04 50);
-  --muted: oklch(0.95 0.015 75);
-  --muted-foreground: oklch(0.5 0.03 60);
-  --accent: oklch(0.72 0.13 55);             /* cognac / brass */
-  --accent-foreground: oklch(0.2 0.03 50);
+  --radius: 0.25rem;
+  /* crisp editorial */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.12 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.12 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.12 0 0);
+  --primary: oklch(0.12 0 0);                /* near black */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.965 0 0);
+  --secondary-foreground: oklch(0.12 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.48 0 0);
+  --accent: oklch(0.86 0.04 110);            /* soft sage from HUB rule */
+  --accent-foreground: oklch(0.18 0 0);
   --destructive: oklch(0.55 0.22 27);
-  --destructive-foreground: oklch(0.98 0.01 80);
-  --border: oklch(0.9 0.02 75);
-  --input: oklch(0.9 0.02 75);
-  --ring: oklch(0.42 0.11 45);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.91 0 0);
+  --input: oklch(0.91 0 0);
+  --ring: oklch(0.12 0 0);
 }
 
 @layer base {
@@ -64,10 +65,21 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.005em;
+    font-weight: 500;
   }
+}
+
+@utility font-script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+@utility tracking-luxury {
+  letter-spacing: 0.22em;
 }
