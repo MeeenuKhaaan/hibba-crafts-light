@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Heart, Star } from "lucide-react";
-import { getProduct, products, formatPKR } from "@/lib/products";
+import { getProduct, products, formatPKR, type Product } from "@/lib/products";
 import { SiteHeader, PromoBar } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useCart } from "@/lib/cart";
@@ -55,7 +55,7 @@ export const Route = createFileRoute("/products/$slug")({
 });
 
 function ProductPage() {
-  const { product } = Route.useLoaderData();
+  const { product } = Route.useLoaderData() as { product: Product };
   const { add } = useCart();
   const { has, toggle } = useWishlist();
   const navigate = useNavigate();
