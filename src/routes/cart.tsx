@@ -114,14 +114,12 @@ function CartPage() {
                   <dt>Total</dt><dd>{formatPKR(total)}</dd>
                 </div>
               </dl>
-              <button
-                onClick={() => {
-                  alert("Checkout coming soon. We'll confirm your order on WhatsApp.");
-                }}
-                className="mt-6 w-full border border-foreground bg-foreground px-6 py-3 text-[11px] uppercase tracking-luxury text-background transition hover:bg-transparent hover:text-foreground"
+              <Link
+                to="/checkout"
+                className="mt-6 block w-full border border-foreground bg-foreground px-6 py-3 text-center text-[11px] uppercase tracking-luxury text-background transition hover:bg-transparent hover:text-foreground"
               >
                 Checkout
-              </button>
+              </Link>
               <button
                 onClick={clear}
                 className="mt-3 w-full text-[11px] uppercase tracking-luxury text-muted-foreground hover:text-foreground"
