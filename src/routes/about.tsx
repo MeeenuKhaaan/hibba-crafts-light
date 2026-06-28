@@ -6,10 +6,10 @@ import hero from "@/assets/hero.jpg";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "Our Story — HIBBA" },
-      { name: "description", content: "The craft, the makers, and the lifetime promise behind HIBBA Trading." },
-      { property: "og:title", content: "Our Story — HIBBA" },
-      { property: "og:description", content: "The craft, the makers, and the lifetime promise behind HIBBA Trading." },
+      { title: "Our Story — HIBBA TRADING" },
+      { name: "description", content: "The craft, the makers, and the lifetime promise behind HIBBA TRADING TRADING." },
+      { property: "og:title", content: "Our Story — HIBBA TRADING" },
+      { property: "og:description", content: "The craft, the makers, and the lifetime promise behind HIBBA TRADING TRADING." },
       { property: "og:image", content: hero },
     ],
   }),
@@ -23,7 +23,7 @@ function AboutPage() {
       <SiteHeader />
 
       <section className="relative h-[60vh] min-h-[420px] w-full overflow-hidden bg-secondary">
-        <img src={hero} alt="HIBBA craft" className="absolute inset-0 h-full w-full object-cover" />
+        <img src={hero} alt="HIBBA TRADING craft" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/50" />
         <div className="relative z-10 mx-auto flex h-full max-w-4xl items-center justify-center px-6 text-center text-background">
           <div>
@@ -37,10 +37,10 @@ function AboutPage() {
       </section>
 
       <section className="mx-auto max-w-3xl px-6 py-20 text-center">
-        <p className="text-[11px] uppercase tracking-luxury text-muted-foreground">The HIBBA promise</p>
+        <p className="text-[11px] uppercase tracking-luxury text-muted-foreground">The HIBBA TRADING promise</p>
         <h2 className="mt-4 font-script text-4xl md:text-5xl">Made by hand. Kept for years.</h2>
         <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-          HIBBA Trading began with a simple belief — that everyday objects deserve to be made well.
+          HIBBA TRADING TRADING began with a simple belief — that everyday objects deserve to be made well.
           We work with third-generation tanners in Lahore and bladesmiths who still forge by coal,
           turning honest materials into pieces meant to outlive trends.
         </p>
@@ -56,7 +56,7 @@ function AboutPage() {
           {[
             { t: "Honest materials", d: "Full-grain leather, high-carbon and damascus steel — sourced, never substituted." },
             { t: "Made by people", d: "Small workshops, named makers, fair wages. No shortcuts on the bench." },
-            { t: "Built to be repaired", d: "Every HIBBA piece comes with a lifetime repair promise. Bring it back, we'll fix it." },
+            { t: "Built to be repaired", d: "Every HIBBA TRADING piece comes with a lifetime repair promise. Bring it back, we'll fix it." },
           ].map((b) => (
             <div key={b.t} className="text-center">
               <h3 className="text-sm font-medium uppercase tracking-wider">{b.t}</h3>

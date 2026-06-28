@@ -20,7 +20,7 @@ export function SiteFooter() {
       ],
     },
     {
-      title: "Hibba",
+      title: "Hibba Trading",
       items: [
         { label: "Our Story", to: "/about" },
         { label: "WhatsApp +92 311 1222 482", href: "https://wa.me/923111222482" },
@@ -32,7 +32,7 @@ export function SiteFooter() {
     <footer className="bg-foreground text-background">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-5">
         <div className="md:col-span-2">
-          <p className="font-script text-4xl">Hibba</p>
+          <p className="font-script text-4xl">Hibba Trading</p>
           <p className="mt-3 max-w-sm text-sm text-background/70">
             Heirloom leather goods and hand-forged knives, shipped across Pakistan and worldwide.
           </p>
@@ -74,7 +74,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-background/15">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-5 text-[11px] uppercase tracking-luxury text-background/60 md:flex-row">
-          <p>© {new Date().getFullYear()} HIBBA Trading. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} HIBBA TRADING TRADING. All rights reserved.</p>
           <p>Designed in Pakistan</p>
         </div>
       </div>
