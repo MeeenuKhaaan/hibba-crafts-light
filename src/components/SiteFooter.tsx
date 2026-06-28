@@ -74,7 +74,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-background/15">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-5 text-[11px] uppercase tracking-luxury text-background/60 md:flex-row">
-          <p>© {new Date().getFullYear()} HIBBA TRADING TRADING. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} HIBBA TRADING. All rights reserved.</p>
           <p>Designed in Pakistan</p>
         </div>
       </div>

@@ -7,9 +7,9 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "Our Story — HIBBA TRADING" },
-      { name: "description", content: "The craft, the makers, and the lifetime promise behind HIBBA TRADING TRADING." },
+      { name: "description", content: "The craft, the makers, and the lifetime promise behind HIBBA TRADING." },
       { property: "og:title", content: "Our Story — HIBBA TRADING" },
-      { property: "og:description", content: "The craft, the makers, and the lifetime promise behind HIBBA TRADING TRADING." },
+      { property: "og:description", content: "The craft, the makers, and the lifetime promise behind HIBBA TRADING." },
       { property: "og:image", content: hero },
     ],
   }),
@@ -40,7 +40,7 @@ function AboutPage() {
         <p className="text-[11px] uppercase tracking-luxury text-muted-foreground">The HIBBA TRADING promise</p>
         <h2 className="mt-4 font-script text-4xl md:text-5xl">Made by hand. Kept for years.</h2>
         <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-          HIBBA TRADING TRADING began with a simple belief — that everyday objects deserve to be made well.
+          HIBBA TRADING began with a simple belief — that everyday objects deserve to be made well.
           We work with third-generation tanners in Lahore and bladesmiths who still forge by coal,
           turning honest materials into pieces meant to outlive trends.
         </p>

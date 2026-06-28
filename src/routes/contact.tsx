@@ -7,9 +7,9 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — HIBBA TRADING" },
-      { name: "description", content: "Get in touch with HIBBA TRADING TRADING. WhatsApp, email and our Lahore studio." },
+      { name: "description", content: "Get in touch with HIBBA TRADING. WhatsApp, email and our Lahore studio." },
       { property: "og:title", content: "Contact — HIBBA TRADING" },
-      { property: "og:description", content: "Get in touch with HIBBA TRADING TRADING." },
+      { property: "og:description", content: "Get in touch with HIBBA TRADING." },
     ],
   }),
   component: ContactPage,

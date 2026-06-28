@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "HIBBA TRADING TRADING: handcrafted leather goods and forged knives. Free delivery on orders above Rs.1,990.",
+          "HIBBA TRADING: handcrafted leather goods and forged knives. Free delivery on orders above Rs.1,990.",
       },
       { property: "og:title", content: "HIBBA TRADING — Where Sophistication Begins" },
       {
