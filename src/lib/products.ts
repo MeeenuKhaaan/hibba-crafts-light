@@ -5,22 +5,36 @@ import pocketknife from "@/assets/product-pocketknife.jpg";
 import bag from "@/assets/product-bag.jpg";
 import knifeset from "@/assets/product-knifeset.jpg";
 
+export type Review = { name: string; rating: number; text: string; date: string };
+
 export type Product = {
   slug: string;
   name: string;
   sku: string;
   price: number; // PKR
+  oldPrice?: number;
   category: "Leather" | "Knives";
   gender?: "Men" | "Women" | "Unisex";
   img: string;
+  gallery?: string[];
   tagline: string;
   description: string;
   details: string[];
+  sizes?: string[];
+  rating: number;
+  reviews: Review[];
   isNew?: boolean;
+  inStock?: boolean;
 };
 
 export const formatPKR = (n: number) =>
   `Rs.${n.toLocaleString("en-PK")}`;
+
+const baseReviews: Review[] = [
+  { name: "Ahmed K.", rating: 5, text: "Quality is outstanding. Worth every rupee.", date: "2 weeks ago" },
+  { name: "Sara M.", rating: 5, text: "Beautiful craftsmanship, very happy with my purchase.", date: "1 month ago" },
+  { name: "Bilal R.", rating: 4, text: "Great product, delivery was fast.", date: "3 weeks ago" },
+];
 
 export const products: Product[] = [
   {
@@ -28,6 +42,7 @@ export const products: Product[] = [
     name: "Heritage Bifold Wallet — Tan",
     sku: "MW0813A-003",
     price: 5530,
+    oldPrice: 6500,
     category: "Leather",
     gender: "Men",
     img: wallet,
@@ -40,7 +55,10 @@ export const products: Product[] = [
       "6 card slots + 2 hidden pockets",
       "Dimensions: 11 × 9 cm",
     ],
+    rating: 4.8,
+    reviews: baseReviews,
     isNew: true,
+    inStock: true,
   },
   {
     slug: "damascus-chef-knife",
@@ -59,6 +77,9 @@ export const products: Product[] = [
       "Stabilised walnut handle",
       '8" / 20 cm blade',
     ],
+    rating: 4.9,
+    reviews: baseReviews,
+    inStock: true,
   },
   {
     slug: "hand-stitched-belt",
@@ -75,9 +96,12 @@ export const products: Product[] = [
       "Bridle leather, 4mm thick",
       "Solid brass buckle",
       "Hand-burnished edges",
-      "Available in 5 sizes",
     ],
+    sizes: ["30", "32", "34", "36", "38"],
+    rating: 4.7,
+    reviews: baseReviews,
     isNew: true,
+    inStock: true,
   },
   {
     slug: "brass-pocket-knife",
@@ -96,6 +120,9 @@ export const products: Product[] = [
       "Lock-back mechanism",
       "Closed length: 9.5 cm",
     ],
+    rating: 4.6,
+    reviews: baseReviews,
+    inStock: true,
   },
   {
     slug: "cognac-messenger-bag",
@@ -114,7 +141,10 @@ export const products: Product[] = [
       'Fits 14" laptop',
       "Adjustable shoulder strap",
     ],
+    rating: 4.9,
+    reviews: baseReviews,
     isNew: true,
+    inStock: true,
   },
   {
     slug: "kitchen-knife-duo",
@@ -133,6 +163,180 @@ export const products: Product[] = [
       '8" chef + 3.5" paring',
       "Includes cotton roll",
     ],
+    rating: 4.8,
+    reviews: baseReviews,
+    inStock: true,
+  },
+  // Extended catalog
+  {
+    slug: "classic-card-holder",
+    name: "Classic Card Holder — Black",
+    sku: "MW0820-004",
+    price: 3200,
+    category: "Leather",
+    gender: "Men",
+    img: wallet,
+    tagline: "Minimal, 4 cards, full-grain.",
+    description: "A pocket-friendly card holder cut from full-grain black leather, with four card slots and a centre pocket for folded notes.",
+    details: ["Full-grain black leather", "4 card slots", "Slim profile"],
+    rating: 4.5,
+    reviews: baseReviews,
+    inStock: true,
+  },
+  {
+    slug: "tan-tote-bag",
+    name: "Tan Leather Tote",
+    sku: "WB0160-005",
+    price: 19500,
+    category: "Leather",
+    gender: "Women",
+    img: bag,
+    tagline: "Everyday tote, hand-finished.",
+    description: "Spacious tan tote with reinforced handles and a soft suede lining. Designed for daily use and built to last.",
+    details: ["Full-grain tan leather", "Suede lining", "Magnetic closure"],
+    rating: 4.7,
+    reviews: baseReviews,
+    isNew: true,
+    inStock: true,
+  },
+  {
+    slug: "executive-briefcase",
+    name: "Executive Briefcase",
+    sku: "MB0210-006",
+    price: 32500,
+    category: "Leather",
+    gender: "Men",
+    img: bag,
+    tagline: "Boardroom-ready leather case.",
+    description: "Structured briefcase in saddle-tanned leather with antique brass hardware and twin internal compartments.",
+    details: ["Saddle-tanned leather", "Antique brass lock", "Fits 15\" laptop"],
+    rating: 4.8,
+    reviews: baseReviews,
+    inStock: true,
+  },
+  {
+    slug: "ladies-clutch",
+    name: "Evening Clutch — Cognac",
+    sku: "WC0050-001",
+    price: 8900,
+    category: "Leather",
+    gender: "Women",
+    img: bag,
+    tagline: "Hand-stitched evening clutch.",
+    description: "A compact clutch with a soft suede interior and detachable wrist strap. Carries phone, cards and essentials.",
+    details: ["Soft cognac leather", "Detachable strap", "Suede lined"],
+    rating: 4.6,
+    reviews: baseReviews,
+    inStock: true,
+  },
+  {
+    slug: "tactical-folder",
+    name: "Tactical Folder Knife",
+    sku: "KP0460-003",
+    price: 12500,
+    category: "Knives",
+    gender: "Unisex",
+    img: pocketknife,
+    tagline: "G10 grip, liner-lock.",
+    description: "A robust tactical folder with G10 scales, a stonewashed D2 blade, and reversible pocket clip.",
+    details: ["D2 stonewashed blade", "G10 scales", "Liner lock + clip"],
+    rating: 4.7,
+    reviews: baseReviews,
+    inStock: true,
+  },
+  {
+    slug: "hunting-knife",
+    name: "Hunting Knife — Stag Handle",
+    sku: "KH0110-001",
+    price: 15800,
+    category: "Knives",
+    gender: "Unisex",
+    img: knife,
+    tagline: "Stag horn handle, leather sheath.",
+    description: "Fixed-blade hunting knife with a hand-shaped stag horn handle and a hand-stitched leather sheath included.",
+    details: ["High-carbon steel", "Stag horn handle", "Leather sheath included"],
+    rating: 4.9,
+    reviews: baseReviews,
+    isNew: true,
+    inStock: true,
+  },
+  {
+    slug: "santoku-knife",
+    name: "Santoku Knife — 7\"",
+    sku: "KC0240-002",
+    price: 14500,
+    category: "Knives",
+    gender: "Unisex",
+    img: knife,
+    tagline: "Granton edge, wenge handle.",
+    description: "A 7-inch santoku with a granton edge that releases food cleanly, mounted to a stabilised wenge handle.",
+    details: ["VG-10 core steel", "Granton edge", "Wenge wood handle"],
+    rating: 4.7,
+    reviews: baseReviews,
+    inStock: true,
+  },
+  {
+    slug: "ladies-wallet",
+    name: "Long Zip Wallet — Burgundy",
+    sku: "WW0080-002",
+    price: 6800,
+    category: "Leather",
+    gender: "Women",
+    img: wallet,
+    tagline: "12 card slots, zip closure.",
+    description: "A long-format zip wallet in deep burgundy with 12 card slots, three note compartments and a zipped coin pocket.",
+    details: ["Full-grain burgundy leather", "12 card slots", "Zip coin pocket"],
+    rating: 4.6,
+    reviews: baseReviews,
+    inStock: true,
+  },
+  {
+    slug: "double-belt",
+    name: "Reversible Belt — Black/Brown",
+    sku: "MB0095-003",
+    price: 4900,
+    category: "Leather",
+    gender: "Men",
+    img: belt,
+    tagline: "Two colours, one belt.",
+    description: "Reversible bridle belt with a rotating brass buckle. Black on one side, brown on the other.",
+    details: ["Reversible bridle leather", "Rotating brass buckle"],
+    sizes: ["30", "32", "34", "36", "38", "40"],
+    rating: 4.5,
+    reviews: baseReviews,
+    inStock: true,
+  },
+  {
+    slug: "kitchen-block-set",
+    name: "5-Piece Kitchen Set",
+    sku: "KC0350-002",
+    price: 38500,
+    oldPrice: 45000,
+    category: "Knives",
+    gender: "Unisex",
+    img: knifeset,
+    tagline: "Chef, santoku, utility, paring, shears.",
+    description: "A complete five-piece set covering every kitchen task, presented in a hand-rolled canvas wrap.",
+    details: ["5 matched knives + shears", "High-carbon stainless", "Canvas roll"],
+    rating: 4.9,
+    reviews: baseReviews,
+    isNew: true,
+    inStock: true,
+  },
+  {
+    slug: "passport-cover",
+    name: "Passport Cover — Tan",
+    sku: "MA0020-001",
+    price: 2800,
+    category: "Leather",
+    gender: "Unisex",
+    img: wallet,
+    tagline: "Travel-ready, hand-stitched.",
+    description: "A clean passport cover with a card slot and pen loop. Fits all standard passports.",
+    details: ["Vegetable-tanned leather", "Card slot + pen loop"],
+    rating: 4.4,
+    reviews: baseReviews,
+    inStock: true,
   },
 ];
 

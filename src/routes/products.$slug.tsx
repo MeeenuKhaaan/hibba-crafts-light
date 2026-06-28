@@ -1,9 +1,11 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { Heart, Star } from "lucide-react";
 import { getProduct, products, formatPKR } from "@/lib/products";
 import { SiteHeader, PromoBar } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useCart } from "@/lib/cart";
+import { useWishlist } from "@/lib/wishlist";
 
 export const Route = createFileRoute("/products/$slug")({
   loader: ({ params }) => {
@@ -55,23 +57,31 @@ export const Route = createFileRoute("/products/$slug")({
 function ProductPage() {
   const { product } = Route.useLoaderData();
   const { add } = useCart();
+  const { has, toggle } = useWishlist();
   const navigate = useNavigate();
   const [qty, setQty] = useState(1);
+  const [size, setSize] = useState<string | null>(product.sizes?.[0] ?? null);
   const [added, setAdded] = useState(false);
+  const wished = has(product.slug);
+
+  const gallery = product.gallery && product.gallery.length > 0 ? product.gallery : [product.img];
+  const [activeImg, setActiveImg] = useState(0);
 
   const related = products.filter(
     (p) => p.category === product.category && p.slug !== product.slug,
-  );
+  ).slice(0, 3);
 
   const onAdd = () => {
+    if (product.sizes && !size) return;
     add(product.slug, qty);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };
 
   const onBuyNow = () => {
+    if (product.sizes && !size) return;
     add(product.slug, qty);
-    navigate({ to: "/cart" });
+    navigate({ to: "/checkout" });
   };
 
   return (
@@ -93,19 +103,34 @@ function ProductPage() {
       </nav>
 
       <section className="mx-auto grid max-w-7xl gap-12 px-6 py-10 md:grid-cols-2 md:py-16">
-        <div className="relative bg-secondary">
-          {product.isNew && (
-            <span className="absolute left-4 top-4 z-10 bg-background px-2 py-1 text-[10px] uppercase tracking-luxury">
-              New
-            </span>
+        <div>
+          <div className="relative bg-secondary">
+            {product.isNew && (
+              <span className="absolute left-4 top-4 z-10 bg-background px-2 py-1 text-[10px] uppercase tracking-luxury">
+                New
+              </span>
+            )}
+            <img
+              src={gallery[activeImg]}
+              alt={product.name}
+              width={900}
+              height={900}
+              className="aspect-square w-full object-cover"
+            />
+          </div>
+          {gallery.length > 1 && (
+            <div className="mt-3 grid grid-cols-4 gap-2">
+              {gallery.map((src, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveImg(i)}
+                  className={`overflow-hidden border ${i === activeImg ? "border-foreground" : "border-border"}`}
+                >
+                  <img src={src} alt="" className="aspect-square w-full object-cover" />
+                </button>
+              ))}
+            </div>
           )}
-          <img
-            src={product.img}
-            alt={product.name}
-            width={900}
-            height={900}
-            className="aspect-square w-full object-cover"
-          />
         </div>
 
         <div className="flex flex-col">
@@ -113,12 +138,28 @@ function ProductPage() {
           <h1 className="mt-3 text-2xl font-medium uppercase tracking-wider md:text-3xl">
             {product.name}
           </h1>
+          <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
+            <div className="flex">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star
+                  key={i}
+                  className={`h-4 w-4 ${i < Math.round(product.rating) ? "fill-foreground text-foreground" : "text-border"}`}
+                />
+              ))}
+            </div>
+            <span>{product.rating.toFixed(1)} · {product.reviews.length} reviews</span>
+          </div>
           <p className="mt-3 text-base text-muted-foreground">{product.tagline}</p>
 
           <div className="mt-6 flex items-baseline gap-3">
             <span className="text-2xl font-medium">{formatPKR(product.price)}</span>
+            {product.oldPrice && (
+              <span className="text-base text-muted-foreground line-through">
+                {formatPKR(product.oldPrice)}
+              </span>
+            )}
             <span className="text-[11px] uppercase tracking-luxury text-muted-foreground">
-              Inclusive of all taxes
+              Inc. all taxes
             </span>
           </div>
 
@@ -129,7 +170,7 @@ function ProductPage() {
           <div className="mt-6">
             <p className="text-[11px] uppercase tracking-luxury text-muted-foreground">Details</p>
             <ul className="mt-3 space-y-2 text-sm">
-              {product.details.map((d: string) => (
+              {product.details.map((d) => (
                 <li key={d} className="flex items-start gap-3">
                   <span className="mt-2 h-px w-3 shrink-0 bg-foreground" />
                   <span>{d}</span>
@@ -137,6 +178,25 @@ function ProductPage() {
               ))}
             </ul>
           </div>
+
+          {product.sizes && (
+            <div className="mt-6">
+              <p className="text-[11px] uppercase tracking-luxury text-muted-foreground">Size</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {product.sizes.map((s) => (
+                  <button
+                    key={s}
+                    onClick={() => setSize(s)}
+                    className={`min-w-12 border px-4 py-2 text-sm ${
+                      size === s ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground"
+                    }`}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="mt-8 flex items-center gap-4">
             <p className="text-[11px] uppercase tracking-luxury text-muted-foreground">Quantity</p>
@@ -162,18 +222,56 @@ function ProductPage() {
             >
               {added ? "Added to bag ✓" : `Add to bag · ${formatPKR(product.price * qty)}`}
             </button>
-            <button
-              onClick={onBuyNow}
-              className="w-full border border-foreground px-8 py-4 text-[11px] uppercase tracking-luxury transition hover:bg-foreground hover:text-background"
-            >
-              Buy it now
-            </button>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                onClick={onBuyNow}
+                className="border border-foreground px-6 py-3 text-[11px] uppercase tracking-luxury transition hover:bg-foreground hover:text-background"
+              >
+                Buy it now
+              </button>
+              <button
+                onClick={() => toggle(product.slug)}
+                className="flex items-center justify-center gap-2 border border-foreground px-6 py-3 text-[11px] uppercase tracking-luxury transition hover:bg-foreground hover:text-background"
+              >
+                <Heart className={`h-4 w-4 ${wished ? "fill-destructive text-destructive" : ""}`} />
+                {wished ? "Saved" : "Save"}
+              </button>
+            </div>
           </div>
 
           <div className="mt-10 grid grid-cols-3 gap-4 border-t border-border pt-6 text-[11px] uppercase tracking-luxury text-muted-foreground">
             <div><p className="text-foreground">Lifetime repair</p><p className="mt-1 normal-case tracking-normal">On every piece</p></div>
             <div><p className="text-foreground">Ships 3–7 days</p><p className="mt-1 normal-case tracking-normal">Across Pakistan</p></div>
             <div><p className="text-foreground">Gift wrapped</p><p className="mt-1 normal-case tracking-normal">Complimentary</p></div>
+          </div>
+        </div>
+      </section>
+
+      {/* Reviews */}
+      <section className="border-t border-border">
+        <div className="mx-auto max-w-4xl px-6 py-16">
+          <div className="text-center">
+            <p className="text-[11px] uppercase tracking-luxury text-muted-foreground">Customer reviews</p>
+            <h2 className="mt-2 font-script text-4xl">What people are saying</h2>
+          </div>
+          <div className="mt-10 space-y-6">
+            {product.reviews.map((r, i) => (
+              <article key={i} className="border-b border-border pb-6">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-medium uppercase tracking-wider">{r.name}</p>
+                  <p className="text-xs text-muted-foreground">{r.date}</p>
+                </div>
+                <div className="mt-1 flex">
+                  {Array.from({ length: 5 }).map((_, j) => (
+                    <Star
+                      key={j}
+                      className={`h-3 w-3 ${j < r.rating ? "fill-foreground text-foreground" : "text-border"}`}
+                    />
+                  ))}
+                </div>
+                <p className="mt-3 text-sm text-foreground/90">{r.text}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
