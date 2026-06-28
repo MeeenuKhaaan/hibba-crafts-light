@@ -7,9 +7,9 @@ import { ProductGrid } from "@/components/ProductGrid";
 export const Route = createFileRoute("/women")({
   head: () => ({
     meta: [
-      { title: "Women — HIBBA" },
+      { title: "Women — HIBBA TRADING" },
       { name: "description", content: "Bags, wallets and accessories for her." },
-      { property: "og:title", content: "Women — HIBBA" },
+      { property: "og:title", content: "Women — HIBBA TRADING" },
       { property: "og:description", content: "Bags, wallets and accessories for her." },
     ],
   }),

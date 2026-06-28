@@ -13,7 +13,7 @@ export const Route = createFileRoute("/products/$slug")({
   },
   head: ({ loaderData }) => {
     const p = loaderData?.product;
-    const title = p ? `${p.name} — HIBBA` : "Product — HIBBA";
+    const title = p ? `${p.name} — HIBBA TRADING` : "Product — HIBBA TRADING";
     const description = p?.description ?? "Handcrafted leather goods and knives.";
     return {
       meta: [

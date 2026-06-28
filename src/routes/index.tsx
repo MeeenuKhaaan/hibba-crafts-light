@@ -11,13 +11,13 @@ import { ProductGrid } from "@/components/ProductGrid";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "HIBBA — Where Sophistication Begins" },
+      { title: "HIBBA TRADING — Where Sophistication Begins" },
       {
         name: "description",
         content:
-          "HIBBA Trading: handcrafted leather goods and forged knives. Free delivery on orders above Rs.1,990.",
+          "HIBBA TRADING: handcrafted leather goods and forged knives. Free delivery on orders above Rs.1,990.",
       },
-      { property: "og:title", content: "HIBBA — Where Sophistication Begins" },
+      { property: "og:title", content: "HIBBA TRADING — Where Sophistication Begins" },
       {
         property: "og:description",
         content: "Handcrafted leather goods and forged knives, shipped across Pakistan.",
@@ -194,11 +194,11 @@ function Story() {
   return (
     <section id="story" className="bg-secondary/60">
       <div className="mx-auto max-w-3xl px-6 py-24 text-center">
-        <p className="text-[11px] uppercase tracking-luxury text-muted-foreground">The HIBBA promise</p>
+        <p className="text-[11px] uppercase tracking-luxury text-muted-foreground">The HIBBA TRADING promise</p>
         <h2 className="mt-4 font-script text-5xl md:text-6xl">Made by hand. Kept for years.</h2>
         <p className="mt-6 text-base leading-relaxed text-muted-foreground">
           From third-generation tanners in Lahore to bladesmiths who still forge by coal,
-          every HIBBA piece is inspected, signed, and backed by our lifetime repair promise.
+          every HIBBA TRADING piece is inspected, signed, and backed by our lifetime repair promise.
           Designed in Pakistan. Loved across the world.
         </p>
         <Link

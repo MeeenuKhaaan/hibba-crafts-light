@@ -25,7 +25,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
         <Link to="/" className="font-script text-4xl leading-none tracking-tight">
-          Hibba
+          Hibba Trading
         </Link>
         <nav className="absolute left-1/2 hidden -translate-x-1/2 gap-8 text-[11px] uppercase tracking-luxury md:flex">
           {nav.map((n) => (

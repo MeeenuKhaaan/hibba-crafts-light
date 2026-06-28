@@ -9,7 +9,7 @@ const FREE_SHIP = 1990;
 export const Route = createFileRoute("/cart")({
   head: () => ({
     meta: [
-      { title: "Your Bag — HIBBA" },
+      { title: "Your Bag — HIBBA TRADING" },
       { name: "description", content: "Review your selected pieces and check out." },
     ],
   }),

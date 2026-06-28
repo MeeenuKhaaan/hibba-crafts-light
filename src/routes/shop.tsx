@@ -7,9 +7,9 @@ import { ProductGrid } from "@/components/ProductGrid";
 export const Route = createFileRoute("/shop")({
   head: () => ({
     meta: [
-      { title: "Shop All — HIBBA" },
-      { name: "description", content: "Browse the full HIBBA collection of leather goods and forged knives." },
-      { property: "og:title", content: "Shop All — HIBBA" },
+      { title: "Shop All — HIBBA TRADING" },
+      { name: "description", content: "Browse the full HIBBA TRADING collection of leather goods and forged knives." },
+      { property: "og:title", content: "Shop All — HIBBA TRADING" },
       { property: "og:description", content: "Leather goods and forged knives, shipped across Pakistan." },
     ],
   }),

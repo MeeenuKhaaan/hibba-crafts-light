@@ -6,10 +6,10 @@ import { SiteFooter } from "@/components/SiteFooter";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — HIBBA" },
-      { name: "description", content: "Get in touch with HIBBA Trading. WhatsApp, email and our Lahore studio." },
-      { property: "og:title", content: "Contact — HIBBA" },
-      { property: "og:description", content: "Get in touch with HIBBA Trading." },
+      { title: "Contact — HIBBA TRADING" },
+      { name: "description", content: "Get in touch with HIBBA TRADING. WhatsApp, email and our Lahore studio." },
+      { property: "og:title", content: "Contact — HIBBA TRADING" },
+      { property: "og:description", content: "Get in touch with HIBBA TRADING." },
     ],
   }),
   component: ContactPage,
