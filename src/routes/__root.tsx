@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CartProvider } from "../lib/cart";
 import { WishlistProvider } from "../lib/wishlist";
+import { AuthProvider } from "../lib/auth";
 import { WhatsAppFloat } from "../components/WhatsAppFloat";
 import { NewsletterPopup } from "../components/NewsletterPopup";
 
@@ -126,14 +127,16 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <WishlistProvider>
-        <CartProvider>
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-          <Outlet />
-          <WhatsAppFloat />
-          <NewsletterPopup />
-        </CartProvider>
-      </WishlistProvider>
+      <AuthProvider>
+        <WishlistProvider>
+          <CartProvider>
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+            <WhatsAppFloat />
+            <NewsletterPopup />
+          </CartProvider>
+        </WishlistProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

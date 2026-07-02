@@ -14,7 +14,158 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      addresses: {
+        Row: {
+          address_line: string
+          city: string
+          created_at: string
+          full_name: string
+          id: string
+          is_default: boolean
+          label: string | null
+          phone: string
+          user_id: string
+        }
+        Insert: {
+          address_line: string
+          city: string
+          created_at?: string
+          full_name: string
+          id?: string
+          is_default?: boolean
+          label?: string | null
+          phone: string
+          user_id: string
+        }
+        Update: {
+          address_line?: string
+          city?: string
+          created_at?: string
+          full_name?: string
+          id?: string
+          is_default?: boolean
+          label?: string | null
+          phone?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      order_items: {
+        Row: {
+          id: string
+          order_id: string
+          product_name: string
+          product_slug: string
+          qty: number
+          size: string | null
+          unit_price: number
+        }
+        Insert: {
+          id?: string
+          order_id: string
+          product_name: string
+          product_slug: string
+          qty: number
+          size?: string | null
+          unit_price: number
+        }
+        Update: {
+          id?: string
+          order_id?: string
+          product_name?: string
+          product_slug?: string
+          qty?: number
+          size?: string | null
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          address_line: string
+          city: string
+          created_at: string
+          email: string | null
+          full_name: string
+          id: string
+          notes: string | null
+          order_code: string
+          payment_method: string
+          phone: string
+          shipping: number
+          status: string
+          subtotal: number
+          total: number
+          user_id: string | null
+        }
+        Insert: {
+          address_line: string
+          city: string
+          created_at?: string
+          email?: string | null
+          full_name: string
+          id?: string
+          notes?: string | null
+          order_code: string
+          payment_method: string
+          phone: string
+          shipping: number
+          status?: string
+          subtotal: number
+          total: number
+          user_id?: string | null
+        }
+        Update: {
+          address_line?: string
+          city?: string
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          id?: string
+          notes?: string | null
+          order_code?: string
+          payment_method?: string
+          phone?: string
+          shipping?: number
+          status?: string
+          subtotal?: number
+          total?: number
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string | null
+          id: string
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
