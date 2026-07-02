@@ -22,6 +22,7 @@ export const Route = createFileRoute("/checkout")({
 function CheckoutPage() {
   const { detailed, subtotal, clear } = useCart();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const shipping = subtotal === 0 ? 0 : subtotal >= FREE_SHIP ? 0 : 250;
   const total = subtotal + shipping;
 
@@ -39,16 +40,72 @@ function CheckoutPage() {
   const set = <K extends keyof typeof form>(k: K, v: string) =>
     setForm((f) => ({ ...f, [k]: v }));
 
+  // Prefill from profile + default address when signed in
+  useEffect(() => {
+    if (!user) return;
+    setForm((f) => ({ ...f, email: f.email || user.email || "" }));
+    supabase.from("profiles").select("full_name, phone").eq("id", user.id).maybeSingle().then(({ data }) => {
+      if (data) setForm((f) => ({
+        ...f,
+        name: f.name || data.full_name || "",
+        phone: f.phone || data.phone || "",
+      }));
+    });
+    supabase.from("addresses").select("*").order("is_default", { ascending: false }).limit(1).maybeSingle().then(({ data }) => {
+      if (data) setForm((f) => ({
+        ...f,
+        name: f.name || data.full_name,
+        phone: f.phone || data.phone,
+        address: f.address || data.address_line,
+        city: f.city || data.city,
+      }));
+    });
+  }, [user]);
+
   const valid =
     form.name.trim().length > 1 &&
     /^[0-9+ \-]{8,15}$/.test(form.phone) &&
     form.address.trim().length > 5 &&
     form.city.trim().length > 1;
 
-  const placeOrder = (e: React.FormEvent) => {
+  const placeOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!valid || detailed.length === 0) return;
     const orderId = "HT-" + Date.now().toString().slice(-6);
+
+    // Save to DB if signed in
+    if (user) {
+      const { data: order, error } = await supabase
+        .from("orders")
+        .insert({
+          order_code: orderId,
+          user_id: user.id,
+          full_name: form.name,
+          phone: form.phone,
+          email: form.email || null,
+          address_line: form.address,
+          city: form.city,
+          notes: form.notes || null,
+          payment_method: form.payment,
+          subtotal,
+          shipping,
+          total,
+        })
+        .select("id")
+        .single();
+      if (!error && order) {
+        await supabase.from("order_items").insert(
+          detailed.map((it) => ({
+            order_id: order.id,
+            product_slug: it.slug,
+            product_name: it.product.name,
+            unit_price: it.product.price,
+            qty: it.qty,
+          })),
+        );
+      }
+    }
+
     const lines = detailed
       .map((it) => `• ${it.product.name} × ${it.qty} — ${formatPKR(it.product.price * it.qty)}`)
       .join("\n");
