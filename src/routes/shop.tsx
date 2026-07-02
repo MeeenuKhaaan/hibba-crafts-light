@@ -25,7 +25,8 @@ type Cat = "All" | "Leather" | "Knives";
 type Sort = "featured" | "price-asc" | "price-desc" | "new";
 
 function ShopPage() {
-  const [q, setQ] = useState("");
+  const { q: initialQ } = Route.useSearch();
+  const [q, setQ] = useState(initialQ);
   const [cat, setCat] = useState<Cat>("All");
   const [sort, setSort] = useState<Sort>("featured");
   const [maxPrice, setMaxPrice] = useState(50000);
