@@ -7,6 +7,9 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ProductGrid } from "@/components/ProductGrid";
 
 export const Route = createFileRoute("/shop")({
+  validateSearch: (s: Record<string, unknown>) => ({
+    q: typeof s.q === "string" ? s.q : "",
+  }),
   head: () => ({
     meta: [
       { title: "Shop All — HIBBA TRADING" },
