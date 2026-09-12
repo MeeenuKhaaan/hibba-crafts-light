@@ -31,12 +31,13 @@ export const Route = createFileRoute("/products/$slug")({
     <div className="mx-auto max-w-3xl px-6 py-32 text-center">
       <p className="text-[11px] uppercase tracking-luxury text-muted-foreground">404</p>
       <h1 className="mt-3 font-script text-5xl">Product not found</h1>
-      <Link
-        to="/shop"
-        className="mt-8 inline-block border border-foreground px-8 py-3 text-[11px] uppercase tracking-luxury hover:bg-foreground hover:text-background"
-      >
-        Back to shop
-      </Link>
+        <Link
+          to="/shop"
+          search={{ q: "" }}
+          className="mt-8 inline-block border border-foreground px-8 py-3 text-[11px] uppercase tracking-luxury hover:bg-foreground hover:text-background"
+        >
+          Back to shop
+        </Link>
     </div>
   ),
   errorComponent: ({ error, reset }) => (

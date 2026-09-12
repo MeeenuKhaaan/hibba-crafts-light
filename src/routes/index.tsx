@@ -49,6 +49,7 @@ function Home() {
         <div className="mt-12 text-center">
           <Link
             to="/shop"
+            search={{ q: "" }}
             className="inline-block border border-foreground px-8 py-3 text-[11px] uppercase tracking-luxury hover:bg-foreground hover:text-background"
           >
             View all products
@@ -86,6 +87,7 @@ function Hero() {
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
                 to="/shop"
+                search={{ q: "" }}
                 className="border border-background bg-background px-8 py-3 text-[11px] uppercase tracking-luxury text-foreground transition hover:bg-transparent hover:text-background"
               >
                 Shop the collection
