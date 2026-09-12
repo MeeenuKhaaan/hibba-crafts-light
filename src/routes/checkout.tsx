@@ -137,6 +137,7 @@ function CheckoutPage() {
           <div className="mt-8 flex justify-center gap-3">
             <Link
               to="/shop"
+              search={{ q: "" }}
               className="border border-foreground px-6 py-3 text-[11px] uppercase tracking-luxury hover:bg-foreground hover:text-background"
             >
               Continue shopping
@@ -166,7 +167,7 @@ function CheckoutPage() {
 
         {detailed.length === 0 ? (
           <p className="mt-16 text-center text-sm text-muted-foreground">
-            Your bag is empty. <Link to="/shop" className="underline">Start shopping</Link>
+            Your bag is empty. <Link to="/shop" search={{ q: "" }} className="underline">Start shopping</Link>
           </p>
         ) : (
           <form onSubmit={placeOrder} className="mt-12 grid gap-10 lg:grid-cols-3">

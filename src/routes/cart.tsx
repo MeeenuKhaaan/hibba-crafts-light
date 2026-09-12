@@ -38,6 +38,7 @@ function CartPage() {
             <p className="text-sm text-muted-foreground">Your bag is empty.</p>
             <Link
               to="/shop"
+              search={{ q: "" }}
               className="mt-6 inline-block border border-foreground px-8 py-3 text-[11px] uppercase tracking-luxury hover:bg-foreground hover:text-background"
             >
               Shop the collection

@@ -131,7 +131,7 @@ function AccountPage() {
           <div className="mt-8">
             {orders.length === 0 ? (
               <p className="py-10 text-center text-sm text-muted-foreground">
-                No orders yet. <Link to="/shop" className="underline">Start shopping</Link>
+                No orders yet. <Link to="/shop" search={{ q: "" }} className="underline">Start shopping</Link>
               </p>
             ) : (
               <table className="w-full text-sm">

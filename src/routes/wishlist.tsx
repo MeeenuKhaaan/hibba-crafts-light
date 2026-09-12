@@ -34,6 +34,7 @@ function WishlistPage() {
               <p className="text-sm text-muted-foreground">No saved pieces yet.</p>
               <Link
                 to="/shop"
+                search={{ q: "" }}
                 className="mt-6 inline-block border border-foreground px-8 py-3 text-[11px] uppercase tracking-luxury hover:bg-foreground hover:text-background"
               >
                 Browse the collection
